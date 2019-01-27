@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="model.Alumnes" table="alumnes">
+        <id column="nexp" name="nexp" type="integer">
+            <generator class="identity"/>
+        </id>
+        <component name="nif">
+            <property name="nif"></property>
+        </component>
+        
+        <property name="nom" type="string">
+            <column name="nom" />
+        </property>
+        <property name="telefon" type="string">
+            <column name="telefon" />
+        </property>
+        <property name="sexe" type="integer">
+            <column name="sexe" />
+        </property>
+        <property name="datanaix" type="date">
+            <column name="datanaix" />
+        </property>
+        <property name="susp" type="integer">
+            <column name="susp"/>
+        </property>
+        
+        <many-to-one name="grup">
+            <column name="grup"></column>
+        </many-to-one>
+        
+        <set name="listaGrupos" cascade="all" inverse="true">
+            <key>
+                <column name="delegat" />
+            </key>
+            <one-to-many class="model.Grups"/>
+        </set>
+        
+    </class>
+  
+</hibernate-mapping>

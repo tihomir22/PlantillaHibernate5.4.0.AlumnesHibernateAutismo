@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+  <class name="model.Grups" table="grups">
+      <id column="codi" name="codi" type="string">
+        </id>
+        
+        <property name="nivell" column="nivel">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">model.enumerado.Nivel</param>
+                <param name="type">12</param>
+            </type>
+        </property>
+        
+   
+        
+         <many-to-one name="alum">
+            <column name="delegat"></column>
+        </many-to-one>
+        
+        
+        <set name="listaAlum" cascade="all" inverse="true">
+            <key>
+                <column name="grup" />
+            </key>
+            <one-to-many class="model.Alumnes"/>
+        </set>
+  </class>
+</hibernate-mapping>
