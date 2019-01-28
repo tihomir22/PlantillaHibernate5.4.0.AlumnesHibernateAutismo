@@ -8,8 +8,11 @@ package app;
 import controller.AlumnesDAO;
 import controller.GrupsDAO;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
@@ -160,6 +163,35 @@ public class App {
                     case 6:
                         AlumnesDAO.alumnosMatriculadosEnGrupo();
                         break;
+                    case 7:
+                        AlumnesDAO.seleccionarPorFecha("2019-01-26");
+                        break;
+                    case 8:
+                        AlumnesDAO.seleccionarPorFechaPosicional("2019-01-26");
+                        break;
+
+                    case 9:
+                        Query query = Conexion.sesion.getNamedQuery("SeleccionAlumnosporFechaNac");
+                        Calendar cal = Calendar.getInstance();
+                        cal.set(2019, 00, 26);
+                        System.out.println(cal.getTime());
+                        query.setParameter("datanaix", cal.getTime());
+                        List<Alumnes> alumnos = query.list();
+                        for (Alumnes alum2 : alumnos) {
+                            System.out.println(alum2.getNom() + "\t " + alum2.getDatanaix());
+                        }
+                        break;
+
+                    case 10:
+                        Query query2 = Conexion.sesion.createQuery("SELECT a FROM Alumnes a LEFT JOIN FETCH a.listaGrupos");
+                        List<Alumnes> datos = query2.list();
+                        for (Alumnes alum2 : datos) {
+                            System.out.println(alum2.getNom());
+                            for (Object g : alum2.getListaGrupos()) {
+                                System.out.println(((Grups) g).getCodi());
+                            }
+                        }
+                        break;
                 }
             }
         }
@@ -188,6 +220,9 @@ public class App {
         System.out.println("\t 4.- Mostrar alumnos que han suspendido más que la media ");
         System.out.println("\t 5.- Mostrar alumnos que han suspendido mas de dos");
         System.out.println("\t 6.- Mostrar alumnos matriculados en grupo");
+        System.out.println("\t 7.- Seleccionar alumnos por fecha de nacimiento de forma NOMBRE ");
+        System.out.println("\t 8- Seleccionar alumnos por fecha de nacimiento de forma POSICIONAL");
+        System.out.println("\t 9- Llamar a consulta con nombre ( escrita en xml )");
     }
 
 }

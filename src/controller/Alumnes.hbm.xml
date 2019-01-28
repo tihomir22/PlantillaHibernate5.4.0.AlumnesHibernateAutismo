@@ -37,5 +37,11 @@
         </set>
         
     </class>
+    
+    <query name="SeleccionAlumnosporFechaNac">
+        <![CDATA[ 
+            SELECT p FROM Alumnes p WHERE datanaix=:datanaix
+        ]]>
+    </query>
   
 </hibernate-mapping>

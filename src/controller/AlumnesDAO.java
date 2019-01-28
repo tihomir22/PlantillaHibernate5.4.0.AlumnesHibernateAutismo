@@ -124,11 +124,36 @@ public class AlumnesDAO {
         }
         Conexion.guardarTransaccion();
     }
-    
+
     public static void alumnosMatriculadosEnGrupo() {
         Conexion.conectarse();
         Conexion.iniciarTransaccion();
         Query query = Conexion.sesion.createSQLQuery("SELECT COUNT(*) ,codi FROM grups,alumnes WHERE grups.codi=alumnes.grup GROUP BY codi");
+        List<Object[]> listaAlumnes = query.list();
+        for (Object[] datos : listaAlumnes) {
+            System.out.println(datos[0] + " " + datos[1]);
+        }
+        Conexion.guardarTransaccion();
+    }
+
+    public static void seleccionarPorFecha(String fecha) throws ParseException {
+        Conexion.conectarse();
+        Conexion.iniciarTransaccion();
+        Query query = Conexion.sesion.createSQLQuery("SELECT * FROM alumnes WHERE datanaix='" + fecha + "'");
+
+        List<Object[]> listaAlumnes = query.list();
+        for (Object[] datos : listaAlumnes) {
+            System.out.println(datos[0] + " " + datos[1]);
+        }
+        Conexion.guardarTransaccion();
+    }
+
+    public static void seleccionarPorFechaPosicional(String fecha) throws ParseException {
+        Conexion.conectarse();
+        Conexion.iniciarTransaccion();
+        Query query = Conexion.sesion.createSQLQuery("SELECT * FROM alumnes WHERE datanaix=?");
+        query.setString(1, fecha);
+
         List<Object[]> listaAlumnes = query.list();
         for (Object[] datos : listaAlumnes) {
             System.out.println(datos[0] + " " + datos[1]);

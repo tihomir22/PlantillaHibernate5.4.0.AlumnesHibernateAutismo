@@ -111,4 +111,9 @@ public class Alumnes implements Serializable {
         this.grup = grup;
     }
 
+    @Override
+    public String toString() {
+        return "Alumnes{" + "nexp=" + nexp + ", nif=" + nif + ", nom=" + nom + ", telefon=" + telefon + ", sexe=" + sexe + ", datanaix=" + datanaix + ", susp=" + susp + ", grup=" + grup + ", listaGrupos=" + listaGrupos + '}';
+    }
+
 }
