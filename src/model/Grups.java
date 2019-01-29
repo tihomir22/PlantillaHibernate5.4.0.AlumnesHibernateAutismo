@@ -20,6 +20,7 @@ public class Grups implements Serializable {
     private Nivel nivell;
     private Alumnes alum;
     private Set listaAlum = new HashSet(0);
+    private Aula aula;
 
     public Grups(String codi, Nivel nivell, Alumnes alum) {
         this.codi = codi;
@@ -33,6 +34,15 @@ public class Grups implements Serializable {
     public String getCodi() {
         return codi;
     }
+
+    public Aula getAula() {
+        return aula;
+    }
+
+    public void setAula(Aula aula) {
+        this.aula = aula;
+    }
+    
 
     public void setCodi(String codi) {
         this.codi = codi;

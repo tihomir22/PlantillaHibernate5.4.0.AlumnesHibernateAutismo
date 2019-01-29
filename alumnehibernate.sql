@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 28-01-2019 a las 21:08:15
--- Versión del servidor: 10.1.29-MariaDB
--- Versión de PHP: 7.2.0
+-- Servidor: localhost
+-- Temps de generació: 29-01-2019 a les 10:15:47
+-- Versió del servidor: 10.1.36-MariaDB
+-- Versió de PHP: 7.2.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,13 +19,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `alumnehibernate`
+-- Base de dades: `alumnehibernate`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `alumnes`
+-- Estructura de la taula `alumnes`
 --
 
 CREATE TABLE `alumnes` (
@@ -40,7 +40,7 @@ CREATE TABLE `alumnes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `alumnes`
+-- Bolcament de dades per a la taula `alumnes`
 --
 
 INSERT INTO `alumnes` (`nexp`, `nif`, `nom`, `telefon`, `sexe`, `datanaix`, `susp`, `grup`) VALUES
@@ -53,12 +53,31 @@ INSERT INTO `alumnes` (`nexp`, `nif`, `nom`, `telefon`, `sexe`, `datanaix`, `sus
 (9, 'X5514136R', 'Tihomir', 'Stoychev', 1, '2019-01-27', 0, NULL),
 (13, 'X5514136R', 'MechetoTopcho', 'Stoychev', 1, '2019-01-27', 0, NULL),
 (19, 'X5514136R', 'MechetoTopcho', 'Stoychev', 1, '2019-01-27', 0, 'F1V'),
-(28, 'X5514136R', 'MechetoTopcho', 'Stoychev', 1, '2019-01-27', 0, NULL);
+(28, 'X5514136R', 'MechetoTopcho', 'Stoychev', 1, '2019-01-27', 0, NULL),
+(29, 'X5514136R', 'MechetoTopcho', 'Stoychev', 1, '2019-01-29', 0, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `grups`
+-- Estructura de la taula `aula`
+--
+
+CREATE TABLE `aula` (
+  `codi` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
+  `nombre` varchar(255) COLLATE utf8_spanish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Bolcament de dades per a la taula `aula`
+--
+
+INSERT INTO `aula` (`codi`, `nombre`) VALUES
+('DAM', 'Desarollo de Aplicaciones Multiplataforma');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de la taula `grups`
 --
 
 CREATE TABLE `grups` (
@@ -68,13 +87,13 @@ CREATE TABLE `grups` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `grups`
+-- Bolcament de dades per a la taula `grups`
 --
 
 INSERT INTO `grups` (`codi`, `nivel`, `delegat`) VALUES
 ('B1A', 'Batxiller', 3),
 ('B2A', 'Batxiller', 2),
-('DAM', 'CF', 28),
+('DAM', 'CF', 29),
 ('DAM2', 'CF', 9),
 ('F1V', 'CF', 3),
 ('G1V', 'CF', 4),
@@ -82,45 +101,51 @@ INSERT INTO `grups` (`codi`, `nivel`, `delegat`) VALUES
 ('R1V', 'CF', 6);
 
 --
--- Índices para tablas volcadas
+-- Índexs per a les taules bolcades
 --
 
 --
--- Indices de la tabla `alumnes`
+-- Índexs per a la taula `alumnes`
 --
 ALTER TABLE `alumnes`
   ADD PRIMARY KEY (`nexp`),
   ADD KEY `grup` (`grup`);
 
 --
--- Indices de la tabla `grups`
+-- Índexs per a la taula `aula`
+--
+ALTER TABLE `aula`
+  ADD PRIMARY KEY (`codi`);
+
+--
+-- Índexs per a la taula `grups`
 --
 ALTER TABLE `grups`
   ADD PRIMARY KEY (`codi`),
   ADD KEY `delegat` (`delegat`);
 
 --
--- AUTO_INCREMENT de las tablas volcadas
+-- AUTO_INCREMENT per les taules bolcades
 --
 
 --
--- AUTO_INCREMENT de la tabla `alumnes`
+-- AUTO_INCREMENT per la taula `alumnes`
 --
 ALTER TABLE `alumnes`
-  MODIFY `nexp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `nexp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
--- Restricciones para tablas volcadas
+-- Restriccions per a les taules bolcades
 --
 
 --
--- Filtros para la tabla `alumnes`
+-- Restriccions per a la taula `alumnes`
 --
 ALTER TABLE `alumnes`
   ADD CONSTRAINT `alumnes_ibfk_1` FOREIGN KEY (`grup`) REFERENCES `grups` (`codi`);
 
 --
--- Filtros para la tabla `grups`
+-- Restriccions per a la taula `grups`
 --
 ALTER TABLE `grups`
   ADD CONSTRAINT `grups_ibfk_1` FOREIGN KEY (`delegat`) REFERENCES `alumnes` (`nexp`);

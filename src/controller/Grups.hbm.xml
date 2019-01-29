@@ -26,5 +26,8 @@
             </key>
             <one-to-many class="model.Alumnes"/>
         </set>
+        
+        <one-to-one name="aula" cascade="all"></one-to-one>
+        
   </class>
 </hibernate-mapping>

@@ -26,6 +26,7 @@ public class Alumnes implements Serializable {
     private int susp;
     private Grups grup;
     private Set listaGrupos = new HashSet(0);
+    
 
     public Alumnes(String nom, String telefon, int sexe, Date datanaix, int susp, Grups grup) {
         this.nom = nom;

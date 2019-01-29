@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 import model.Alumnes;
+import model.Aula;
 import model.Grups;
 import model.componentes.NIF;
 import model.enumerado.Nivel;
@@ -43,12 +44,14 @@ public class App {
         ArrayList<Alumnes[]> listaAlumnos = null;
         ArrayList<Grups[]> listaGrupos = null;
         Grups grp = null;
-
+        
         Alumnes alum = new Alumnes("MechetoTopcho", "Stoychev", 1, Calendar.getInstance().getTime(), 0, null);
         NIF nif = new NIF("X5514136R");
         alum.setNif(nif);
-
+        
         Grups grupoNuevo = new Grups("DAM", Nivel.CF, alum);
+        Aula aula = new Aula("DAM", "Desarollo de Aplicaciones Multiplataforma");
+        grupoNuevo.setAula(aula);
         Set<Alumnes> listaAlumnosN = new HashSet<>();
         listaAlumnosN.add(alum);
         grupoNuevo.setListaAlum(listaAlumnosN);
@@ -62,11 +65,11 @@ public class App {
                     case 1:
                         AlumnesDAO.insertar(alum);
                         break;
-
+                    
                     case 2:
                         AlumnesDAO.eliminar(alum);
                         break;
-
+                    
                     case 3:
                         System.out.println("Elige el grupo , introduce sus siglas ");
                         listaGrupos = GrupsDAO.devolverListaGrupos();
@@ -76,7 +79,7 @@ public class App {
                         teclado.nextLine();
                         seleccion = teclado.nextLine();
                         grp = GrupsDAO.getByID(seleccion);
-
+                        
                         if (grp != null) {
                             System.out.println("Seleccionado " + grp.toString());
                             System.out.println("A que alumno le deseas añadir el grupo?");
@@ -96,16 +99,16 @@ public class App {
                         } else {
                             System.out.println("No se ha encontrado el grupo");
                         }
-
+                        
                         break;
-
+                    
                     case 4:
                         GrupsDAO.insertarGrupo(grupoNuevo);
                         break;
                     case 5:
                         GrupsDAO.eliminar(grupoNuevo);
                         break;
-
+                    
                     case 6:
                         System.out.println("Elige el grupo , introduce sus siglas ");
                         listaGrupos = GrupsDAO.devolverListaGrupos();
@@ -115,7 +118,7 @@ public class App {
                         teclado.nextLine();
                         seleccion = teclado.nextLine();
                         grp = GrupsDAO.getByID(seleccion);
-
+                        
                         if (grp != null) {
                             System.out.println("Seleccionado " + grp.toString());
                             System.out.println("Que alumno quieres que sea el delegado?");
@@ -159,7 +162,7 @@ public class App {
                     case 5:
                         AlumnesDAO.suspensosMasDeDos();
                         break;
-
+                    
                     case 6:
                         AlumnesDAO.alumnosMatriculadosEnGrupo();
                         break;
@@ -169,7 +172,7 @@ public class App {
                     case 8:
                         AlumnesDAO.seleccionarPorFechaPosicional("2019-01-26");
                         break;
-
+                    
                     case 9:
                         Query query = Conexion.sesion.getNamedQuery("SeleccionAlumnosporFechaNac");
                         Calendar cal = Calendar.getInstance();
@@ -181,7 +184,7 @@ public class App {
                             System.out.println(alum2.getNom() + "\t " + alum2.getDatanaix());
                         }
                         break;
-
+                    
                     case 10:
                         Query query2 = Conexion.sesion.createQuery("SELECT a FROM Alumnes a LEFT JOIN FETCH a.listaGrupos");
                         List<Alumnes> datos = query2.list();
@@ -195,11 +198,11 @@ public class App {
                 }
             }
         }
-
+        
         Conexion.cerrarSesion();
-
+        
     }
-
+    
     public static void mostrarMenu() {
         System.out.println("Relacionados con alumno");
         System.out.println(" \t 1.- Añadir el alumno");
@@ -211,7 +214,7 @@ public class App {
         System.out.println(" \t 6.- Modificar el delegado");
         System.out.println("0.-Salir");
     }
-
+    
     public static void mostrarMenuMaite() {
         System.out.println("\t 1.-Seleccionar el nombre de los alumnos que son hombre y mayores de 18 años");
         System.out.println("\t 2.-Selecciona el nombre de los alumnos que han suspendido las mismas asignaturas que\n"
@@ -224,5 +227,5 @@ public class App {
         System.out.println("\t 8- Seleccionar alumnos por fecha de nacimiento de forma POSICIONAL");
         System.out.println("\t 9- Llamar a consulta con nombre ( escrita en xml )");
     }
-
+    
 }
